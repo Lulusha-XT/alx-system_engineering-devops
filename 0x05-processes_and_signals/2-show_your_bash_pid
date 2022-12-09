@@ -1,6 +1,4 @@
 #!/usr/bin/env bash
-# This script displays a list of currently running processes
-# displays lines containing the bash word
+#Bash script that displays a list of current processes
 # shellcheck disable=SC2009
-
-ps auxf | grep bash
+ps aux --forest | grep bash

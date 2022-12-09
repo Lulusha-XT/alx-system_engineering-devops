@@ -1,11 +1,13 @@
 #include <stdio.h>
-#include <stdlib.h>
+#include <sys/types.h>
+#include <sys/wait.h>
 #include <unistd.h>
 
 /**
-* infinite_while - creates an infinite loop to make the program hang
-* Return: always 0
-*/
+ * infinite_while - function that containts an infinite loop
+ *
+ * Return: 0
+ */
 int infinite_while(void)
 {
 	while (1)
@@ -16,22 +18,22 @@ int infinite_while(void)
 }
 
 /**
-* main - creates 5 zombie processes
-* Return: always 0
-*/
+ * main - Entry point
+ *
+ * Return: Always 0
+ */
 int main(void)
 {
 	int i;
-	pid_t zombie;
 
 	for (i = 0; i < 5; i++)
 	{
-		zombie = fork();
-		if (!zombie)
+		if (fork() == 0)
+		{
+			dprintf(1, "Zombie process created, PID: %d\n", getpid());
 			return (0);
-		printf("Zombie process created, PID: %d\n", zombie);
+		}
 	}
-
 	infinite_while();
 	return (0);
 }
